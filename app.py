@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -13,7 +15,7 @@ from models.schedule import Schedule
 # ACADEXA
 # Intelligent Academic Management Platform
 # =========================================================
-
+load_dotenv()
 app = Flask(__name__)
 
 
@@ -21,7 +23,7 @@ app = Flask(__name__)
 # APPLICATION CONFIGURATION
 # =========================================================
 
-app.config["SECRET_KEY"] = "acadexa-development-secret-key"
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///acadexa.db"
 
