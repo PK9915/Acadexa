@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Register | Acadexa</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <main class="auth-page">
+
+        <section class="auth-card">
+
+            <!-- Brand -->
+            <div class="auth-brand">
+
+                <div class="auth-logo">
+                    🎓
+                </div>
+
+                <h1>
+                    Acad<span>exa</span>
+                </h1>
+
+                <p>
+                    Intelligent Academic Management Platform
+                </p>
+
+            </div>
+
+
+            <!-- Heading -->
+
+            <div class="auth-heading">
+
+                <h2>
+                    Create your account
+                </h2>
+
+                <p>
+                    Start managing your academic life smarter.
+                </p>
+
+            </div>
+
+
+            <!-- Registration Form -->
+
+            <form method="POST"
+                  action="/register">
+
+                <!-- Full Name -->
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Create a password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Course -->
+
+                <div class="form-group">
+
+                    <label for="course">
+                        Course
+                    </label>
+
+                    <select id="course"
+                            name="course"
+                            required>
+
+                        <option value="">
+                            Select your course
+                        </option>
+
+                        <option value="MCA">
+                            MCA
+                        </option>
+
+                        <option value="BCA">
+                            BCA
+                        </option>
+
+                        <option value="B.Tech">
+                            B.Tech
+                        </option>
+
+                        <option value="M.Tech">
+                            M.Tech
+                        </option>
+
+                        <option value="MBA">
+                            MBA
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Semester -->
+
+                <div class="form-group">
+
+                    <label for="semester">
+                        Semester
+                    </label>
+
+                    <select id="semester"
+                            name="semester"
+                            required>
+
+                        <option value="">
+                            Select semester
+                        </option>
+
+                        <option value="1">Semester 1</option>
+                        <option value="2">Semester 2</option>
+                        <option value="3">Semester 3</option>
+                        <option value="4">Semester 4</option>
+                        <option value="5">Semester 5</option>
+                        <option value="6">Semester 6</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Submit -->
+
+                <button type="submit"
+                        class="auth-button">
+
+                    Create Account
+
+                </button>
+
+            </form>
+
+
+            <!-- Login -->
+
+            <div class="auth-footer">
+
+                <p>
+                    Already have an account?
+
+                    <a href="/login">
+                        Sign In
+                    </a>
+
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>

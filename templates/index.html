@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- =====================================================
+         BASIC DOCUMENT SETTINGS
+    ====================================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Acadexa - Student Assignment and Notes Management System"
+    >
+
+    <meta
+        name="author"
+        content="Acadexa Student Project"
+    >
+
+    <title>Acadexa | Intelligent Academic Management Platform</title>
+
+
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         FONT AWESOME ICONS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- =====================================================
+         CUSTOM CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVIGATION BAR
+========================================================= -->
+
+<header class="navbar">
+
+    <div class="container nav-container">
+
+
+        <!-- LOGO -->
+
+        <a
+            href="#home"
+            class="logo"
+        >
+
+            <div class="logo-icon">
+
+                <i class="fa-solid fa-graduation-cap"></i>
+
+            </div>
+
+
+            <div class="logo-text">
+
+               <strong>
+    Acad<span>exa</span>
+</strong>
+
+                <small>
+                    Intelligent Academic Management Platform
+                </small>
+
+            </div>
+
+        </a>
+
+
+        <!-- DESKTOP NAVIGATION -->
+
+        <nav class="nav-menu">
+
+            <a
+                href="#home"
+                class="nav-link active"
+            >
+                Home
+            </a>
+
+            <a
+                href="#features"
+                class="nav-link"
+            >
+                Features
+            </a>
+
+            <a
+                href="#about"
+                class="nav-link"
+            >
+                About
+            </a>
+
+            <a
+                href="#workflow"
+                class="nav-link"
+            >
+                How It Works
+            </a>
+
+            <a
+                href="#security"
+                class="nav-link"
+            >
+                Security
+            </a>
+
+        </nav>
+
+
+        <!-- NAVIGATION ACTIONS -->
+
+        <div class="nav-actions">
+
+           <a
+    href="{{ url_for('login') }}"
+    class="login-link"
+>
+    Sign In
+</a>
+
+         <a
+    href="{{ url_for('register') }}"
+    class="btn btn-primary"
+>
+
+                <i class="fa-solid fa-user-plus"></i>
+
+                Get Started
+
+            </a>
+
+        </div>
+
+
+        <!-- MOBILE MENU BUTTON -->
+
+        <button
+            class="mobile-menu"
+            id="mobileMenu"
+            aria-label="Open navigation menu"
+        >
+
+            <i class="fa-solid fa-bars"></i>
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     HERO SECTION
+========================================================= -->
+
+<main>
+
+<section
+    class="hero"
+    id="home"
+>
+
+
+    <!-- BACKGROUND DECORATION -->
+
+    <div class="hero-background">
+
+        <div class="gradient-circle circle-one"></div>
+
+        <div class="gradient-circle circle-two"></div>
+
+        <div class="grid-pattern"></div>
+
+    </div>
+
+
+
+    <div class="container hero-container">
+
+
+        <!-- =================================================
+             HERO TEXT
+        ================================================== -->
+
+        <div class="hero-content">
+
+
+            <div class="hero-badge">
+
+                <span class="status-dot"></span>
+
+                Smart Academic Management Platform
+
+            </div>
+
+
+            <h1>
+
+                Organize your
+
+                <span>
+                    academic life
+                </span>
+
+                smarter.
+
+            </h1>
+
+
+            <p>
+
+                Acadexa brings assignments, notes, subjects,
+                deadlines and academic progress into one
+                simple and intelligent platform designed
+                especially for students.
+
+            </p>
+
+
+            <!-- HERO BUTTONS -->
+
+            <div class="hero-buttons">
+
+               <a
+    href="{{ url_for('register') }}"
+    class="btn btn-primary btn-large"
+>
+
+                    <i class="fa-solid fa-rocket"></i>
+
+                    Start Managing
+
+                </a>
+
+
+                <a
+                    href="#features"
+                    class="btn btn-outline btn-large"
+                >
+
+                    <i class="fa-solid fa-circle-play"></i>
+
+                    Explore Features
+
+                </a>
+
+            </div>
+
+
+            <!-- TRUST AREA -->
+
+            <div class="hero-trust">
+
+
+                <div class="trust-avatars">
+
+                    <span>ST</span>
+
+                    <span>AK</span>
+
+                    <span>RS</span>
+
+                    <span>+</span>
+
+                </div>
+
+
+                <div class="trust-text">
+
+                    <strong>
+                        Built for modern students
+                    </strong>
+
+                    <small>
+                        Simple • Secure • Organized
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             DASHBOARD PREVIEW
+        ================================================== -->
+
+        <div class="hero-dashboard">
+
+
+            <div class="dashboard-window">
+
+
+                <!-- WINDOW HEADER -->
+
+                <div class="dashboard-header">
+
+                    <div class="window-controls">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+
+                    <span>
+                        Acadexa.local/dashboard
+                    </span>
+
+
+                    <i class="fa-solid fa-ellipsis"></i>
+
+                </div>
+
+
+
+                <!-- DASHBOARD BODY -->
+
+                <div class="dashboard-content">
+
+
+                    <!-- WELCOME -->
+
+                    <div class="dashboard-welcome">
+
+                        <div>
+
+                            <small>
+                                Tuesday, September 9
+                            </small>
+
+                            <h3>
+                                Welcome back, Student 👋
+                            </h3>
+
+                        </div>
+
+
+                        <div class="profile-icon">
+
+                            <i class="fa-solid fa-user"></i>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- STATISTICS -->
+
+                    <div class="dashboard-stats">
+
+
+                        <div class="dashboard-stat">
+
+                            <div class="stat-icon blue">
+
+                                <i class="fa-solid fa-book"></i>
+
+                            </div>
+
+                            <div>
+
+                                <strong>06</strong>
+
+                                <span>Subjects</span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="dashboard-stat">
+
+                            <div class="stat-icon purple">
+
+                                <i class="fa-solid fa-file-lines"></i>
+
+                            </div>
+
+                            <div>
+
+                                <strong>18</strong>
+
+                                <span>Assignments</span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="dashboard-stat">
+
+                            <div class="stat-icon green">
+
+                                <i class="fa-solid fa-note-sticky"></i>
+
+                            </div>
+
+                            <div>
+
+                                <strong>42</strong>
+
+                                <span>Notes</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PROGRESS CARD -->
+
+                    <div class="dashboard-card">
+
+
+                        <div class="card-title">
+
+                            <strong>
+                                Academic Progress
+                            </strong>
+
+                            <span>
+                                This semester
+                            </span>
+
+                        </div>
+
+
+                        <div class="progress-item">
+
+                            <div class="progress-info">
+
+                                <span>
+                                    Web Development
+                                </span>
+
+                                <strong>
+                                    85%
+                                </strong>
+
+                            </div>
+
+                            <div class="progress-bar">
+
+                                <span style="width: 85%;"></span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress-item">
+
+                            <div class="progress-info">
+
+                                <span>
+                                    Cyber Security
+                                </span>
+
+                                <strong>
+                                    72%
+                                </strong>
+
+                            </div>
+
+                            <div class="progress-bar">
+
+                                <span style="width: 72%;"></span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress-item">
+
+                            <div class="progress-info">
+
+                                <span>
+                                    Database Systems
+                                </span>
+
+                                <strong>
+                                    64%
+                                </strong>
+
+                            </div>
+
+                            <div class="progress-bar">
+
+                                <span style="width: 64%;"></span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ASSIGNMENTS CARD -->
+
+                    <div class="dashboard-card">
+
+
+                        <div class="card-title">
+
+                            <strong>
+                                Upcoming Assignments
+                            </strong>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </div>
+
+
+                        <div class="assignment-item">
+
+
+                            <div class="assignment-icon">
+
+                                <i class="fa-solid fa-code"></i>
+
+                            </div>
+
+
+                            <div class="assignment-info">
+
+                                <strong>
+                                    Flask Web Application
+                                </strong>
+
+                                <small>
+                                    Web Development • Tomorrow
+                                </small>
+
+                            </div>
+
+
+                            <span class="priority">
+
+                                High
+
+                            </span>
+
+                        </div>
+
+
+
+                        <div class="assignment-item">
+
+
+                            <div class="assignment-icon">
+
+                                <i class="fa-solid fa-shield-halved"></i>
+
+                            </div>
+
+
+                            <div class="assignment-info">
+
+                                <strong>
+                                    Digital Forensics Report
+                                </strong>
+
+                                <small>
+                                    Cyber Security • 3 days
+                                </small>
+
+                            </div>
+
+
+                            <span class="priority normal">
+
+                                Medium
+
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FLOATING NOTIFICATION -->
+
+            <div class="floating-notification">
+
+
+                <div class="notification-icon">
+
+                    <i class="fa-solid fa-check"></i>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Assignment Submitted
+                    </strong>
+
+                    <small>
+                        Your work was saved successfully
+                    </small>
+
+                </div>
+
+
+                <span>
+                    Just now
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     STATISTICS
+========================================================= -->
+
+<section class="stats-section">
+
+    <div class="container stats-grid">
+
+
+        <div class="stat-box">
+
+            <div class="stat-box-icon">
+
+                <i class="fa-solid fa-users"></i>
+
+            </div>
+
+            <div>
+
+                <strong>
+                    1.2K+
+                </strong>
+
+                <span>
+                    Student Profiles
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="stat-box">
+
+            <div class="stat-box-icon">
+
+                <i class="fa-solid fa-file-circle-check"></i>
+
+            </div>
+
+            <div>
+
+                <strong>
+                    5K+
+                </strong>
+
+                <span>
+                    Assignments Managed
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="stat-box">
+
+            <div class="stat-box-icon">
+
+                <i class="fa-solid fa-book-open"></i>
+
+            </div>
+
+            <div>
+
+                <strong>
+                    10K+
+                </strong>
+
+                <span>
+                    Notes Organized
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="stat-box">
+
+            <div class="stat-box-icon">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+            </div>
+
+            <div>
+
+                <strong>
+                    92%
+                </strong>
+
+                <span>
+                    Productivity Score
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FEATURES SECTION
+========================================================= -->
+
+<section
+    class="features-section section-padding"
+    id="features"
+>
+
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="section-label">
+                POWERFUL FEATURES
+            </span>
+
+            <h2>
+
+                Everything you need to
+
+                <span>
+                    study smarter.
+                </span>
+
+            </h2>
+
+            <p>
+
+                Acadexa combines the most important
+                academic management tools into one
+                clean and easy-to-use platform.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="features-grid">
+
+
+            <!-- FEATURE 01 -->
+
+            <article class="feature-card">
+
+                <span class="feature-number">
+                    01
+                </span>
+
+                <div class="feature-icon blue-gradient">
+
+                    <i class="fa-solid fa-list-check"></i>
+
+                </div>
+
+                <h3>
+                    Assignment Management
+                </h3>
+
+                <p>
+
+                    Create, organize and track assignments
+                    with deadlines, subjects, priorities
+                    and completion status.
+
+                </p>
+
+                <a
+                   href="{{ url_for('assignments') }}"
+                    class="feature-link"
+                >
+
+                    Explore assignments
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+            </article>
+
+
+
+            <!-- FEATURE 02 -->
+
+            <article class="feature-card">
+
+                <span class="feature-number">
+                    02
+                </span>
+
+                <div class="feature-icon purple-gradient">
+
+                    <i class="fa-solid fa-note-sticky"></i>
+
+                </div>
+
+                <h3>
+                    Smart Notes Library
+                </h3>
+
+                <p>
+
+                    Store important study notes in an
+                    organized digital library and quickly
+                    find the information you need.
+
+                </p>
+
+               <a
+    href="{{ url_for('notes') }}"
+    class="feature-link"
+>
+    Open notes library
+
+    <i class="fa-solid fa-arrow-right"></i>
+
+</a>
+
+            </article>
+
+
+
+            <!-- FEATURE 03 -->
+
+            <article class="feature-card">
+
+                <span class="feature-number">
+                    03
+                </span>
+
+                <div class="feature-icon green-gradient">
+
+                    <i class="fa-solid fa-chart-pie"></i>
+
+                </div>
+
+                <h3>
+                    Progress Tracking
+                </h3>
+
+                <p>
+
+                    Monitor subject progress, assignment
+                    completion and academic performance
+                    through visual statistics.
+
+                </p>
+
+               <a
+    href="{{ url_for('progress') }}"
+    class="feature-link"
+>
+
+    View progress
+
+    <i class="fa-solid fa-arrow-right"></i>
+
+</a>
+
+            </article>
+
+
+
+            <!-- FEATURE 04 -->
+
+            <article class="feature-card">
+
+                <span class="feature-number">
+                    04
+                </span>
+
+                <div class="feature-icon orange-gradient">
+
+                    <i class="fa-solid fa-calendar-days"></i>
+
+                </div>
+
+                <h3>
+                    Deadline Tracking
+                </h3>
+
+                <p>
+
+                    Never miss an important academic deadline.
+                    Keep upcoming submissions visible and
+                    prioritize urgent tasks.
+
+                </p>
+
+               <a
+    href="{{ url_for('assignments') }}"
+    class="feature-link"
+>
+
+    Manage deadlines
+
+    <i class="fa-solid fa-arrow-right"></i>
+
+</a>
+
+            </article>
+
+
+
+            <!-- FEATURE 05 -->
+
+            <article class="feature-card">
+
+                <span class="feature-number">
+                    05
+                </span>
+
+                <div class="feature-icon red-gradient">
+
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                </div>
+
+                <h3>
+                    Secure File Upload
+                </h3>
+
+                <p>
+
+                    Upload assignment documents and academic
+                    resources while keeping your files
+                    organized and accessible.
+
+                </p>
+
+                <a
+                    href="#"
+                    class="feature-link"
+                >
+
+                    Upload files
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+            </article>
+
+
+
+            <!-- FEATURE 06 -->
+
+            <article class="feature-card">
+
+                <span class="feature-number">
+                    06
+                </span>
+
+                <div class="feature-icon cyan-gradient">
+
+                    <i class="fa-solid fa-bell"></i>
+
+                </div>
+
+                <h3>
+                    Academic Notifications
+                </h3>
+
+                <p>
+
+                    Receive reminders about approaching
+                    deadlines, new assignments and important
+                    academic activities.
+
+                </p>
+
+                <a
+                    href="#"
+                    class="feature-link"
+                >
+
+                    View notifications
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     ABOUT SECTION
+========================================================= -->
+
+<section
+    class="about-section section-padding"
+    id="about"
+>
+
+
+    <div class="container about-grid">
+
+
+        <!-- VISUAL -->
+
+        <div class="about-visual">
+
+
+            <div class="about-card">
+
+
+                <div class="about-card-heading">
+
+
+                    <div class="about-icon">
+
+                        <i class="fa-solid fa-layer-group"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <small>
+                            Acadexa SYSTEM
+                        </small>
+
+                        <h3>
+                            One place for everything.
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div class="about-list">
+
+
+                    <div>
+
+                        <span>
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+
+                        Assignment organization
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+
+                        Digital notes management
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+
+                        Academic progress tracking
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+
+                        Deadline monitoring
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+
+                        Secure student accounts
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CONTENT -->
+
+        <div class="about-content">
+
+
+            <span class="section-label">
+                ABOUT THE PROJECT
+            </span>
+
+
+            <h2>
+
+                Designed around the
+
+                <span>
+                    real student experience.
+                </span>
+
+            </h2>
+
+
+            <p>
+
+                Managing academic work across notebooks,
+                messaging applications and different cloud
+                folders can quickly become confusing.
+
+            </p>
+
+
+            <p>
+
+                Acadexa provides a centralized web platform
+                where students can manage assignments,
+                notes, subjects and academic progress from
+                one dashboard.
+
+            </p>
+
+
+
+            <div class="about-highlights">
+
+
+                <div class="highlight">
+
+                    <i class="fa-solid fa-bolt"></i>
+
+                    <div>
+
+                        <strong>
+                            Fast & Simple
+                        </strong>
+
+                        <small>
+                            Designed for everyday use
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="highlight">
+
+                    <i class="fa-solid fa-mobile-screen"></i>
+
+                    <div>
+
+                        <strong>
+                            Responsive
+                        </strong>
+
+                        <small>
+                            Works across devices
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="highlight">
+
+                    <i class="fa-solid fa-database"></i>
+
+                    <div>
+
+                        <strong>
+                            Centralized Data
+                        </strong>
+
+                        <small>
+                            Everything in one place
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="highlight">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <div>
+
+                        <strong>
+                            Secure
+                        </strong>
+
+                        <small>
+                            Authentication-ready
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     WORKFLOW SECTION
+========================================================= -->
+
+<section
+    class="workflow-section section-padding"
+    id="workflow"
+>
+
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="section-label">
+                SIMPLE WORKFLOW
+            </span>
+
+            <h2>
+
+                From task to
+
+                <span>
+                    completion.
+                </span>
+
+            </h2>
+
+            <p>
+
+                A simple workflow keeps your academic
+                responsibilities organized from start to finish.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="workflow-grid">
+
+
+            <!-- STEP 01 -->
+
+            <div class="workflow-step">
+
+                <div class="step-number">
+                    STEP 01
+                </div>
+
+                <div class="step-icon">
+
+                    <i class="fa-solid fa-user-plus"></i>
+
+                </div>
+
+                <h3>
+                    Create Account
+                </h3>
+
+                <p>
+                    Register your student profile.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-line"></div>
+
+
+            <!-- STEP 02 -->
+
+            <div class="workflow-step">
+
+                <div class="step-number">
+                    STEP 02
+                </div>
+
+                <div class="step-icon">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                </div>
+
+                <h3>
+                    Add Work
+                </h3>
+
+                <p>
+                    Add assignments and notes.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-line"></div>
+
+
+            <!-- STEP 03 -->
+
+            <div class="workflow-step">
+
+                <div class="step-number">
+                    STEP 03
+                </div>
+
+                <div class="step-icon">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                </div>
+
+                <h3>
+                    Track Progress
+                </h3>
+
+                <p>
+                    Monitor academic performance.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-line"></div>
+
+
+            <!-- STEP 04 -->
+
+            <div class="workflow-step">
+
+                <div class="step-number">
+                    STEP 04
+                </div>
+
+                <div class="step-icon">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                </div>
+
+                <h3>
+                    Complete
+                </h3>
+
+                <p>
+                    Finish work on time.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SECURITY SECTION
+========================================================= -->
+
+<section
+    class="security-section"
+    id="security"
+>
+
+
+    <div class="container security-container">
+
+
+        <div class="security-icon">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+        </div>
+
+
+        <div class="security-content">
+
+            <span class="light-label">
+                BUILT WITH SECURITY IN MIND
+            </span>
+
+            <h2>
+                Your academic data deserves protection.
+            </h2>
+
+            <p>
+
+                Acadexa is designed with user authentication,
+                secure data storage and controlled access in mind.
+                The backend will use Flask and a relational
+                database to manage student information securely.
+
+            </p>
+
+        </div>
+
+
+        <div class="security-items">
+
+
+            <div>
+
+                <i class="fa-solid fa-user-shield"></i>
+
+                <span>
+                    Authentication
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <i class="fa-solid fa-database"></i>
+
+                <span>
+                    Database
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <i class="fa-solid fa-lock"></i>
+
+                <span>
+                    Protected Data
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CALL TO ACTION
+========================================================= -->
+
+<section
+    class="cta-section section-padding"
+    id="register"
+>
+
+
+    <div class="container">
+
+
+        <div class="cta-card">
+
+
+            <div class="cta-decoration decoration-one"></div>
+
+            <div class="cta-decoration decoration-two"></div>
+
+
+            <div class="cta-content">
+
+
+                <span>
+                    READY TO GET ORGANIZED?
+                </span>
+
+
+                <h2>
+
+                    Turn academic chaos into
+
+                    <strong>
+                        organized progress.
+                    </strong>
+
+                </h2>
+
+
+                <p>
+
+                    Start managing assignments, notes and
+                    academic tasks from one intelligent platform.
+
+                </p>
+
+
+                <div class="cta-buttons">
+
+
+                  <a
+    href="{{ url_for('register') }}"
+    class="btn btn-white btn-large"
+>
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                        Create Student Account
+
+                    </a>
+
+
+                   <span class="cta-login">
+    Already have an account?
+
+    <a href="{{ url_for('login') }}">
+        Sign in
+    </a>
+</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     LOGIN PLACEHOLDER
+========================================================= -->
+
+<section
+    id="login"
+    style="display:none;"
+>
+
+    Login section will be developed in the next module.
+
+</section>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+
+    <div class="container">
+
+
+        <div class="footer-grid">
+
+
+            <!-- BRAND -->
+
+            <div class="footer-brand">
+
+
+                <a
+                    href="#home"
+                    class="logo"
+                >
+
+                    <div class="logo-icon">
+
+                        <i class="fa-solid fa-graduation-cap"></i>
+
+                    </div>
+
+
+                    <div class="logo-text">
+
+                       <strong>
+    Acad<span>exa</span>
+</strong>
+
+                        <small>
+                            Intelligent Academic Management Platform
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+                <p>
+
+                    A student-focused assignment and notes
+                    management system designed to make
+                    academic life more organized and productive.
+
+                </p>
+
+
+                <div class="social-links">
+
+
+                   <a href="https://github.com/YOUR-USERNAME"
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="GitHub">
+
+                        <i class="fa-brands fa-github"></i>
+
+                    </a>
+
+
+                   <a href="https://www.linkedin.com/in/prince-kumar-0709a3272"
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="LinkedIn">
+
+                        <i class="fa-brands fa-linkedin-in"></i>
+
+                    <a href="https://www.instagram.com/mr.suryavanshi1764/"
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="Instagram">
+
+    <i class="fa-brands fa-instagram"></i>
+
+</a>
+
+
+                   <a href="mailto:survanshiprince@gmail.com"
+                       aria-label="Email">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PLATFORM -->
+
+            <div class="footer-column">
+
+                <h4>
+                    Platform
+                </h4>
+
+                <a href="#features">
+                    Features
+                </a>
+
+                <a href="#workflow">
+                    How It Works
+                </a>
+
+                <a href="#about">
+                    About Project
+                </a>
+
+                <a href="#security">
+                    Security
+                </a>
+
+            </div>
+
+
+
+          <!-- MANAGEMENT -->
+
+<div class="footer-column">
+
+    <h4>
+        Management
+    </h4>
+
+    <a href="{{ url_for('assignments') }}">
+        Assignments
+    </a>
+
+    <a href="{{ url_for('notes') }}">
+        Notes
+    </a>
+
+    <a href="{{ url_for('subjects') }}">
+        Subjects
+    </a>
+
+    <a href="{{ url_for('progress') }}">
+        Progress
+    </a>
+
+</div>
+
+
+           <!-- ACCOUNT -->
+
+<div class="footer-column">
+
+    <h4>
+        Account
+    </h4>
+
+    <a href="{{ url_for('login') }}">
+        Student Login
+    </a>
+
+    <a href="{{ url_for('register') }}">
+        Registration
+    </a>
+
+    <a href="#security">
+        Help Center
+    </a>
+
+    <a href="#about">
+        Contact
+    </a>
+
+</div>
+
+        </div>
+
+
+
+        <!-- FOOTER BOTTOM -->
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 Acadexa. Academic Project.
+            </span>
+
+            <span>
+                Built with HTML • CSS • JavaScript • Flask
+            </span>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =========================================================
+     BACK TO TOP BUTTON
+========================================================= -->
+
+<button
+    class="back-to-top"
+    id="backToTop"
+    aria-label="Back to top"
+>
+
+    <i class="fa-solid fa-arrow-up"></i>
+
+</button>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script
+    src="{{ url_for('static', filename='js/script.js') }}"
+></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Acadexa | Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body class="dashboard-page">
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="dashboard-sidebar">
+
+        <div class="dashboard-logo">
+
+            <div class="logo-box">
+                A
+            </div>
+
+            <div>
+                <h2>Acadexa</h2>
+                <span>Student Portal</span>
+            </div>
+
+        </div>
+
+
+        <nav class="dashboard-menu">
+
+            <a href="{{ url_for('dashboard') }}"
+               class="menu-item active">
+
+                <span>⌂</span>
+                Dashboard
+
+            </a>
+
+
+           <a href="{{ url_for('assignments') }}" class="menu-item">
+
+    <span>▣</span>
+    Assignments
+
+</a>
+
+
+           <a href="{{ url_for('subjects') }}" class="menu-item">
+
+    <span>◫</span>
+    Subjects
+
+</a>
+
+
+            <a href="{{ url_for('notes') }}" class="menu-item">
+
+    <span>▤</span>
+    Notes
+
+</a>
+
+
+            <a href="{{ url_for('schedule') }}" class="menu-item">
+                 <span>◷</span>
+                 Schedule
+            </a>
+
+
+           <a href="{{ url_for('progress') }}" class="menu-item">
+
+    <span>◉</span>
+    Progress
+
+</a>
+<div class="sidebar-bottom">
+
+    <a href="{{ url_for('settings') }}" class="menu-item">
+        <span>⚙</span>
+        Settings
+    </a>
+
+  <a href="{{ url_for('logout') }}"
+   class="menu-item logout-item"
+   onclick="return confirm('Are you sure you want to log out?');">
+    <span>↪</span>
+    Logout
+</a>
+
+</div>
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- ================= MAIN AREA ================= -->
+
+    <main class="dashboard-main">
+
+
+        <!-- TOP BAR -->
+
+        <header class="dashboard-header">
+
+            <div>
+
+               <p class="small-heading">
+    Student Dashboard • {{ current_date.strftime('%d %B %Y') }}
+</p>
+
+                <h1>
+                    Welcome back, {{ user.name }} 👋
+                </h1>
+
+               <p class="header-description">
+    Stay organized, track your progress, and keep your academic goals on track.
+</p>
+
+            </div>
+
+
+           <a href="{{ url_for('settings') }}" class="profile-mini profile-mini-link">
+
+    <div class="profile-avatar">
+        {{ user.name[0]|upper }}
+    </div>
+
+    <div>
+
+        <strong>
+            {{ user.name }}
+        </strong>
+
+        <span>
+            {{ user.course or "Student" }}
+        </span>
+
+    </div>
+
+</a>
+
+        </header>
+
+
+
+        <!-- ================= STAT CARDS ================= -->
+
+        <section class="dashboard-stats">
+
+
+           <a href="{{ url_for('assignments') }}" class="stat-card">
+
+
+                <div class="stat-icon assignment-icon">
+                    📝
+                </div>
+
+                <div>
+
+                    <span>
+                        Assignments
+                    </span>
+
+                  <h2>{{ total_assignments }}</h2>
+                <small>
+    {{ pending_assignments }} pending
+    · {{ completed_assignments }} completed
+
+    {% if overdue_assignments > 0 %}
+        · {{ overdue_assignments }} overdue
+    {% endif %}
+</small>
+
+                </div>
+
+           </a>
+
+
+
+            <a href="{{ url_for('subjects') }}" class="stat-card">
+
+                <div class="stat-icon subject-icon">
+                    📚
+                </div>
+
+                <div>
+
+                    <span>
+                        Subjects
+                    </span>
+
+                   <h2>{{ total_subjects }}</h2>
+
+                    <small>
+    Semester {{ user.semester or "N/A" }}
+</small>
+                </div>
+
+            </a>
+
+
+
+           <a href="{{ url_for('notes') }}" class="stat-card">
+
+                <div class="stat-icon notes-icon">
+                    📖
+                </div>
+
+                <div>
+
+                    <span>
+                        Notes
+                    </span>
+
+                   <h2>{{ total_notes }}</h2>
+
+                    <small>
+    {{ total_notes }} saved resource{% if total_notes != 1 %}s{% endif %}
+</small>
+
+                </div>
+
+            </a>
+
+
+
+            <a href="{{ url_for('progress') }}" class="stat-card">
+
+                <div class="stat-icon progress-icon">
+                    📈
+                </div>
+
+                <div>
+
+                    <span>
+                        Progress
+                    </span>
+
+                    <h2>{{ completion_percentage }}%</h2>
+
+                   <small>
+    {{ completed_assignments }} of {{ total_assignments }} completed
+</small>
+
+                </div>
+
+            </a>
+<a href="{{ url_for('subjects') }}" class="quick-action">
+    <div>
+        📚
+    </div>
+    <span>
+        My Subjects
+    </span>
+</a>
+<a href="{{ url_for('assignments') }}" class="quick-action">
+    <div>
+        📝
+    </div>
+    <span>
+        View Assignments
+    </span>
+</a>
+<a href="{{ url_for('notes') }}" class="quick-action">
+    <div>
+        📖
+    </div>
+    <span>
+        View Notes
+    </span>
+</a>
+        </section>
+
+
+
+        <!-- ================= CONTENT GRID ================= -->
+
+        <section class="dashboard-content">
+
+
+            <!-- UPCOMING ASSIGNMENTS -->
+
+            <div class="dashboard-card assignments-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                       <h2>
+    Upcoming Assignments
+    <span class="assignment-count">
+        ({{ upcoming_assignments|length }})
+    </span>
+</h2>
+
+                        <p>
+                            Keep track of your upcoming work.
+                        </p>
+
+                    </div>
+
+                    <a href="{{ url_for('assignments') }}">
+                         View all
+                       </a>
+
+                </div>
+
+
+
+                <div class="assignment-list">
+
+    {% if upcoming_assignments %}
+
+        {% for assignment in upcoming_assignments %}
+
+            <div class="assignment-row">
+
+                <div class="assignment-date">
+
+                    <strong>
+                        {{ assignment.due_date.strftime('%d') }}
+                    </strong>
+
+                    <span>
+                        {{ assignment.due_date.strftime('%b')|upper }}
+                    </span>
+
+                </div>
+
+
+                <div class="assignment-info">
+
+                  <h3>
+    <a href="{{ url_for('edit_assignment', assignment_id=assignment.id) }}">
+        {{ assignment.title }}
+    </a>
+</h3>
+<p>
+    <a href="{{ url_for('subjects') }}" class="assignment-subject-link">
+        {{ assignment.subject }}
+    </a>
+</p>
+<span class="priority {{ assignment.priority|lower }}">
+    {{ assignment.priority }} Priority
+</span>
+{% if assignment.status != "Completed" and assignment.due_date < current_date %}
+
+    <small class="due-info overdue-info">
+        {{ (current_date - assignment.due_date).days }} day(s) overdue
+    </small>
+
+{% elif assignment.due_date == current_date %}
+
+    <small class="due-info today-info">
+        Due today
+    </small>
+
+{% else %}
+
+    <small class="due-info">
+        {{ (assignment.due_date - current_date).days }} day(s) left
+    </small>
+
+{% endif %}
+
+                </div>
+
+
+               {% if assignment.status != "Completed" and assignment.due_date < current_date %}
+
+    <span class="status overdue">
+        Overdue
+    </span>
+
+{% else %}
+
+    <span class="status {{ assignment.status|lower }}">
+        {{ assignment.status }}
+    </span>
+
+{% endif %}
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="assignment-row">
+
+            <div class="assignment-info">
+
+               <h3>No upcoming assignments</h3>
+<p>You're all caught up!</p>
+
+<a href="{{ url_for('add_assignment') }}" class="empty-action-btn">
+    + Add Assignment
+</a>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+            </div>
+
+
+
+            <!-- PROFILE CARD -->
+
+            <div class="dashboard-card profile-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <h2>
+                            My Profile
+                        </h2>
+
+                        <p>
+                            Your academic information.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="large-profile">
+
+                    <div class="large-avatar">
+
+                        {{ user.name[0]|upper }}
+
+                    </div>
+
+
+                    <h3>
+                        {{ user.name }}
+                    </h3>
+
+                    <p>
+                        {{ user.email }}
+                    </p>
+
+                </div>
+
+
+                <div class="profile-details">
+
+                    <div>
+
+                        <span>
+                            Course
+                        </span>
+
+                        <strong>
+                            {{ user.course or "Not specified" }}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Semester
+                        </span>
+
+                        <strong>
+                            {{ user.semester or "Not specified" }}
+                        </strong>
+
+                    </div>
+
+
+                                        <div>
+
+                        <span>
+                            Account Type
+                        </span>
+
+                        <strong>
+                            {{ user.role|capitalize }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <a href="{{ url_for('settings') }}" class="profile-action-btn">
+                    View Profile
+                </a>
+
+            </div>
+
+
+        </section>
+
+        <!-- ================= RECENT ACTIVITY ================= -->
+
+        <div class="dashboard-card recent-activity-card">
+
+           <div class="card-heading">
+    <div>
+        <h2>
+            Recent Activity
+        </h2>
+        <p>
+            Your latest academic activities.
+        </p>
+    </div>
+
+   <a href="{{ url_for('progress') }}">
+    View All Activity
+</a>
+</div>
+
+
+            <div class="recent-activity-list">
+
+
+                {% if recent_assignments %}
+
+                    {% for assignment in recent_assignments %}
+
+                        <div class="activity-item">
+
+                            <div class="activity-icon">
+                                📝
+                            </div>
+
+                            <div class="activity-info">
+
+                               <strong>
+    <a href="{{ url_for('edit_assignment', assignment_id=assignment.id) }}">
+        {{ assignment.title }}
+    </a>
+</strong>
+
+ <span>
+    Assignment •
+    <a href="{{ url_for('subjects') }}">
+        {{ assignment.subject }}
+    </a>
+    • Due {{ assignment.due_date.strftime('%d %b %Y') }}
+</span>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+
+
+                {% if recent_notes %}
+
+                    {% for note in recent_notes %}
+
+                        <div class="activity-item">
+
+                            <div class="activity-icon">
+                                📖
+                            </div>
+
+                            <div class="activity-info">
+
+                              <strong>
+    <a href="{{ url_for('view_note', note_id=note.id) }}">
+        {{ note.title }}
+    </a>
+</strong>
+
+  <span>
+    Note •
+    <a href="{{ url_for('subjects') }}">
+        {{ note.subject }}
+    </a>
+    • Added {{ note.created_at.strftime('%d %b %Y') }}
+</span>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+
+
+                {% if recent_subjects %}
+
+                    {% for subject in recent_subjects %}
+
+                        <div class="activity-item">
+
+                            <div class="activity-icon">
+                                📚
+                            </div>
+
+                            <div class="activity-info">
+
+                               <strong>
+    <a href="{{ url_for('subjects') }}">
+        {{ subject.name }}
+    </a>
+</strong>
+
+<span>
+    Subject •
+    <a href="{{ url_for('subjects') }}">
+        {{ subject.code }}
+    </a>
+    • Added {{ subject.created_at.strftime('%d %b %Y') }}
+</span>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+
+
+                {% if not recent_assignments and not recent_notes and not recent_subjects %}
+
+                    <div class="activity-empty">
+
+                        <span>
+                            📌
+                        </span>
+
+                        <p>
+                            No recent activity yet.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+
+            </div>
+
+        </div>
+        <!-- ================= TODAY'S SCHEDULE ================= -->
+
+        {% if today_schedule %}
+
+        <div class="dashboard-card today-schedule-card">
+
+            <div class="card-heading">
+
+                <div>
+
+                   <h2>
+    Today's Schedule
+    <span class="schedule-date">
+        • {{ current_date.strftime('%d %B') }}
+    </span>
+</h2>
+
+                    <p>
+                        Your academic events for today.
+                    </p>
+
+                </div>
+
+                <a href="{{ url_for('schedule') }}">
+                    View Schedule
+                </a>
+
+            </div>
+
+
+            <div class="today-schedule-list">
+
+                {% for event in today_schedule %}
+
+                <div class="dashboard-schedule-item">
+
+                    <div class="dashboard-schedule-time">
+
+    {% if event.start_time %}
+
+        {{ event.start_time.strftime("%I:%M %p") }}
+
+        {% if event.end_time %}
+            - {{ event.end_time.strftime("%I:%M %p") }}
+        {% endif %}
+
+    {% else %}
+
+        All Day
+
+    {% endif %}
+
+</div>
+
+                   <div class="dashboard-schedule-info">
+
+    <strong>
+        <a href="{{ url_for('edit_schedule_event', event_id=event.id) }}">
+            {{ event.title }}
+        </a>
+    </strong>
+
+    {% if event.subject %}
+
+        <span>
+            <a href="{{ url_for('subjects') }}">
+                {{ event.subject }}
+            </a>
+        </span>
+
+    {% endif %}
+
+    <small>
+        {{ event.event_type or "Academic Event" }}
+    </small>
+
+</div>
+
+
+                    <span class="dashboard-schedule-type">
+    {{ event.event_type or "Academic Event" }}
+</span>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+        {% if not today_schedule %}
+    <div class="dashboard-card today-schedule-card">
+        <div class="card-heading">
+            <div>
+                <h2>Today's Schedule</h2>
+                <p>
+                    • {{ current_date.strftime('%d %B') }}
+                </p>
+            </div>
+
+            <a href="{{ url_for('schedule') }}">
+                View Schedule
+            </a>
+        </div>
+
+        <div class="activity-empty">
+            <span>📅</span>
+            <p>No academic events scheduled for today.</p>
+        </div>
+    </div>
+{% endif %}
+        <!-- ================= PROGRESS SECTION ================= -->
+
+
+        <section class="dashboard-card progress-card">
+
+
+            <div class="card-heading">
+
+                <div>
+
+                    <h2>
+                        Academic Progress
+                    </h2>
+
+                    <p>
+                        Your current semester progress.
+                    </p>
+
+                </div>
+
+               <strong class="progress-number">
+                       {{ completion_percentage }}%
+               </strong>
+
+            </div>
+
+
+           <div class="progress-bar">
+
+                <div
+                class="progress-fill"
+                   data-progress="{{ completion_percentage }}">
+                </div>
+
+            </div>
+
+
+           <div class="progress-labels">
+
+    <span>
+        Semester {{ user.semester or "N/A" }} Progress
+    </span>
+
+    <span>
+        {{ completed_assignments }} completed
+    </span>
+
+</div>
+
+<a href="{{ url_for('progress') }}" class="progress-action-btn">
+    View Detailed Progress
+</a>
+        </section>
+
+
+        <!-- ================= QUICK ACTIONS ================= -->
+
+        <section class="quick-actions">
+
+
+           <a href="{{ url_for('add_assignment') }}" class="quick-action">
+
+    <div>
+        📝
+    </div>
+
+    <span>
+        Add Assignment
+    </span>
+
+</a>
+
+
+           <a href="{{ url_for('add_note') }}" class="quick-action">
+
+                        <div>
+                           📚
+                      </div>
+
+                          <span>
+                             Add Notes
+                            </span>
+
+              </a>
+
+
+           <a href="{{ url_for('schedule') }}" class="quick-action">
+
+    <div>
+        📅
+    </div>
+
+    <span>
+        View Schedule
+    </span>
+
+</a>
+<a href="{{ url_for('add_schedule_event') }}" class="quick-action">
+    <div>
+        ➕
+    </div>
+    <span>
+        Add Schedule
+    </span>
+</a>
+<a href="{{ url_for('add_subject') }}" class="quick-action">
+    <div>
+        📚
+    </div>
+    <span>
+        Add Subject
+    </span>
+</a>
+
+<a href="{{ url_for('settings') }}" class="quick-action">
+<div>
+    ⚙
+</div>
+    <span>
+        Settings
+    </span>
+</a>
+
+
+            <a href="{{ url_for('progress') }}" class="quick-action">
+    <div>
+        📈
+    </div>
+    <span>
+        Check Progress
+    </span>
+</a>
+
+        </section>
+
+
+    </main>
+
+    
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const progressBar =
+                document.querySelector(".progress-fill");
+
+            if (progressBar) {
+
+                const progressValue =
+                    progressBar.getAttribute("data-progress");
+
+                progressBar.style.width =
+                    progressValue + "%";
+            }
+
+        });
+    </script>
+
+</body>
+</html>

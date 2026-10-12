@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Acadexa | View Note</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body class="dashboard-page">
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="dashboard-sidebar">
+
+        <div class="dashboard-logo">
+
+            <div class="logo-box">
+                A
+            </div>
+
+            <div>
+                <h2>Acadexa</h2>
+                <span>Student Portal</span>
+            </div>
+
+        </div>
+
+
+       <nav class="dashboard-menu">
+
+    <a href="{{ url_for('dashboard') }}" class="menu-item">
+        <span>⌂</span>
+        Dashboard
+    </a>
+
+    <a href="{{ url_for('assignments') }}" class="menu-item">
+        <span>▣</span>
+        Assignments
+    </a>
+
+    <a href="{{ url_for('subjects') }}" class="menu-item">
+        <span>◫</span>
+        Subjects
+    </a>
+
+    <a href="{{ url_for('notes') }}" class="menu-item active">
+        <span>▤</span>
+        Notes
+    </a>
+
+    <a href="{{ url_for('schedule') }}" class="menu-item">
+        <span>◷</span>
+        Schedule
+    </a>
+
+    <a href="{{ url_for('progress') }}" class="menu-item">
+        <span>◉</span>
+        Progress
+    </a>
+
+</nav>
+
+
+      <div class="sidebar-bottom">
+
+    <a href="{{ url_for('settings') }}"
+       class="menu-item">
+
+        <span>⚙</span>
+        Settings
+
+    </a>
+
+
+    <a href="{{ url_for('logout') }}"
+   class="menu-item logout-item"
+   onclick="return confirm('Are you sure you want to log out?');">
+    <span>↪</span>
+    Logout
+</a>
+
+</div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="dashboard-main">
+
+
+        <!-- HEADER -->
+
+        <header class="dashboard-header">
+
+            <div>
+
+                <p class="small-heading">
+                    Academic Knowledge
+                </p>
+
+                <h1>
+                    View Note
+                </h1>
+
+                <p class="header-description">
+                    Read your complete study note.
+                </p>
+
+            </div>
+
+
+          <a href="{{ url_for('settings') }}"
+   class="profile-mini profile-mini-link">
+
+    <div class="profile-avatar">
+        {{ user.name[0]|upper }}
+    </div>
+
+    <div>
+        <strong>{{ user.name }}</strong>
+        <span>{{ user.course or "Student" }}</span>
+    </div>
+
+</a>
+
+        </header>
+
+
+        <!-- NOTE CONTENT -->
+
+        <section class="view-note-section">
+
+            <div class="view-note-card">
+
+
+                <div class="view-note-top">
+
+                    <div class="view-note-icon">
+                        📝
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            {{ note.title }}
+                        </h2>
+
+                        {% if note.subject %}
+
+                            <p>
+                                Subject:
+                                <strong>{{ note.subject }}</strong>
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <div class="view-note-divider"></div>
+
+
+                <div class="view-note-content">
+
+                    {{ note.content }}
+
+                </div>
+
+
+                <div class="view-note-footer">
+
+                    <a href="{{ url_for('notes') }}"
+                       class="cancel-btn">
+
+                        ← Back to Notes
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</body>
+
+</html>

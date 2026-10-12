@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Acadexa | Edit Subject</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body class="dashboard-page">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="dashboard-sidebar">
+
+        <div class="dashboard-logo">
+
+            <div class="logo-box">
+                A
+            </div>
+
+            <div>
+                <h2>Acadexa</h2>
+                <span>Student Portal</span>
+            </div>
+
+        </div>
+
+
+        <nav class="dashboard-menu">
+
+            <a href="{{ url_for('dashboard') }}" class="menu-item">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('assignments') }}" class="menu-item">
+                <span>▣</span>
+                Assignments
+            </a>
+
+            <a href="{{ url_for('subjects') }}" class="menu-item active">
+                <span>◫</span>
+                Subjects
+            </a>
+
+            <a href="{{ url_for('notes') }}" class="menu-item">
+                <span>▤</span>
+                Notes
+            </a>
+
+            <a href="{{ url_for('schedule') }}" class="menu-item">
+                <span>◷</span>
+                Schedule
+            </a>
+
+            <a href="{{ url_for('progress') }}" class="menu-item">
+                <span>◉</span>
+                Progress
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="{{ url_for('settings') }}"
+               class="menu-item">
+
+                <span>⚙</span>
+                Settings
+
+            </a>
+
+
+            <a href="{{ url_for('logout') }}"
+               class="menu-item logout-item"
+               onclick="return confirm('Are you sure you want to log out?');">
+
+                <span>↪</span>
+                Logout
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="dashboard-main">
+
+
+        <header class="dashboard-header">
+
+            <div>
+
+                <p class="small-heading">
+                    Academic Organization
+                </p>
+
+                <h1>
+                    Edit Subject
+                </h1>
+
+                <p class="header-description">
+                    Update your subject information and academic details.
+                </p>
+
+            </div>
+
+
+            <a href="{{ url_for('settings') }}"
+               class="profile-mini profile-mini-link">
+
+                <div class="profile-avatar">
+                    {{ user.name[0]|upper }}
+                </div>
+
+                <div>
+
+                    <strong>
+                        {{ user.name }}
+                    </strong>
+
+                    <span>
+                        {{ user.course or "Student" }}
+                    </span>
+
+                </div>
+
+            </a>
+
+        </header>
+
+
+        <!-- EDIT SUBJECT FORM -->
+
+        <section class="form-card">
+
+            <div class="form-card-header">
+
+                <h2>
+                    Subject Information
+                </h2>
+
+                <p>
+                    Update the details for
+                    <strong>{{ subject.name }}</strong>.
+                </p>
+
+            </div>
+
+
+            <form method="POST">
+
+
+                <!-- SUBJECT NAME -->
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Subject Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value="{{ subject.name }}"
+                        placeholder="Enter subject name"
+                        required>
+
+                </div>
+
+
+                <!-- SUBJECT CODE -->
+
+                <div class="form-group">
+
+                    <label for="code">
+                        Subject Code
+                    </label>
+
+                    <input
+                        type="text"
+                        id="code"
+                        name="code"
+                        value="{{ subject.code or '' }}"
+                        placeholder="Example: CN302">
+
+                </div>
+
+
+                <!-- FACULTY -->
+
+                <div class="form-group">
+
+                    <label for="teacher">
+                        Faculty / Teacher
+                    </label>
+
+                    <input
+                        type="text"
+                        id="teacher"
+                        name="teacher"
+                        value="{{ subject.teacher or '' }}"
+                        placeholder="Enter faculty name">
+
+                </div>
+
+
+                <!-- SEMESTER -->
+
+                <div class="form-group">
+
+                    <label for="semester">
+                        Semester
+                    </label>
+
+                    <select
+                        id="semester"
+                        name="semester">
+
+                        <option value="">
+                            Select Semester
+                        </option>
+
+                        {% for semester_number in range(1, 9) %}
+
+                            <option
+                                value="{{ semester_number }}"
+                                {% if subject.semester == semester_number %}
+                                    selected
+                                {% endif %}>
+
+                                Semester {{ semester_number }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="form-group">
+
+                    <label for="description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="5"
+                        placeholder="Enter a short description">{{ subject.description or '' }}</textarea>
+
+                </div>
+
+
+                <!-- ACTIONS -->
+
+                <div class="form-actions">
+
+                    <button
+                        type="submit"
+                        class="add-assignment-btn">
+
+                        Update Subject
+
+                    </button>
+
+
+                    <a
+                        href="{{ url_for('subjects') }}"
+                        class="cancel-btn">
+
+                        Cancel
+
+                    </a>
+
+                </div>
+
+
+            </form>
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>

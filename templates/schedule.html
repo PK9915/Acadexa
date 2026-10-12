@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Acadexa | Schedule</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body class="dashboard-page">
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="dashboard-sidebar">
+
+        <div class="dashboard-logo">
+
+            <div class="logo-box">
+                A
+            </div>
+
+            <div>
+                <h2>Acadexa</h2>
+                <span>Student Portal</span>
+            </div>
+
+        </div>
+
+
+       <nav class="dashboard-menu">
+
+    <a href="{{ url_for('dashboard') }}" class="menu-item">
+        <span>⌂</span>
+        Dashboard
+    </a>
+
+
+    <a href="{{ url_for('assignments') }}" class="menu-item">
+        <span>▣</span>
+        Assignments
+    </a>
+
+
+    <a href="{{ url_for('subjects') }}" class="menu-item">
+        <span>◫</span>
+        Subjects
+    </a>
+
+
+    <a href="{{ url_for('notes') }}" class="menu-item">
+        <span>▤</span>
+        Notes
+    </a>
+
+
+    <a href="{{ url_for('schedule') }}" class="menu-item active">
+        <span>◷</span>
+        Schedule
+    </a>
+
+
+    <a href="{{ url_for('progress') }}" class="menu-item">
+        <span>◉</span>
+        Progress
+    </a>
+
+</nav>
+<div class="sidebar-bottom">
+
+    <a href="{{ url_for('settings') }}"
+       class="menu-item">
+
+        <span>⚙</span>
+        Settings
+
+    </a>
+
+
+    <a href="{{ url_for('logout') }}"
+   class="menu-item logout-item"
+   onclick="return confirm('Are you sure you want to log out?');">
+    <span>↪</span>
+    Logout
+</a>
+
+</div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="dashboard-main">
+
+<div class="flash-container">
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+        <div class="flash-message {{ category }}">
+            <strong>{{ message }}</strong>
+        </div>
+    {% endfor %}
+</div>
+        <header class="dashboard-header">
+
+            <div>
+
+                <p class="small-heading">
+                    Academic Planning
+                </p>
+
+                <h1>
+                    My Schedule
+                </h1>
+
+                <p class="header-description">
+                    Plan your classes, labs, exams, and other academic events in one place.
+                </p>
+
+            </div>
+
+
+           <a href="{{ url_for('settings') }}"
+   class="profile-mini profile-mini-link">
+
+    <div class="profile-avatar">
+
+        {{ user.name[0]|upper }}
+
+    </div>
+
+    <div>
+
+        <strong>
+            {{ user.name }}
+        </strong>
+
+        <span>
+            {{ user.course or "Student" }}
+        </span>
+
+    </div>
+
+</a>
+        </header>
+
+
+        <!-- PAGE TOP -->
+
+        <div class="assignment-page-top">
+
+            <div>
+
+                <h2>
+    Academic Schedule
+    <span class="schedule-total-count">
+    {% if events|length == 1 %}
+        (1 event)
+    {% else %}
+        ({{ events|length }} events)
+    {% endif %}
+</span>
+</h2>
+
+                <p>
+                    Keep track of your classes and upcoming academic events.
+                </p>
+
+            </div>
+
+
+            <a href="{{ url_for('add_schedule_event') }}"
+               class="add-assignment-btn">
+
+                + Add Event
+
+            </a>
+
+        </div>
+
+<!-- =====================================================
+     TODAY'S SCHEDULE
+     ===================================================== -->
+
+{% if today_events %}
+
+<section class="schedule-summary">
+
+    <div class="schedule-summary-heading">
+
+        <div>
+            <h2>Today's Schedule</h2>
+
+            <p>
+                Events scheduled for today.
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="today-events-list">
+
+        {% for event in today_events %}
+
+        <div class="today-event">
+
+            <div class="today-event-time">
+
+                {% if event.start_time %}
+                    {{ event.start_time.strftime("%I:%M %p") }}
+                {% else %}
+                    All Day
+                {% endif %}
+
+            </div>
+
+
+            <div class="today-event-info">
+
+               <strong>
+    <a href="{{ url_for('edit_schedule_event', event_id=event.id) }}">
+        {{ event.title }}
+    </a>
+</strong>
+
+                {% if event.subject %}
+
+    <span>
+        <a href="{{ url_for('subjects') }}">
+            {{ event.subject }}
+        </a>
+    </span>
+
+{% endif %}
+
+            </div>
+
+
+            <span class="today-event-type">
+                {{ event.event_type or "Event" }}
+            </span>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endif %}
+
+
+
+<!-- =====================================================
+     UPCOMING EVENTS
+     ===================================================== -->
+
+{% if upcoming_events %}
+
+<section class="schedule-summary">
+
+    <div class="schedule-summary-heading">
+
+        <div>
+<h2>
+    Upcoming Events
+    <span class="schedule-list-count">
+        ({{ upcoming_events|length }})
+    </span>
+</h2>
+            <p>
+                Your next academic events.
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="today-events-list">
+
+        {% for event in upcoming_events %}
+
+        <div class="today-event">
+
+            <div class="upcoming-event-date">
+
+                <strong>
+                    {{ event.event_date.strftime("%d") }}
+                </strong>
+
+                <span>
+                    {{ event.event_date.strftime("%b")|upper }}
+                </span>
+
+            </div>
+
+
+           <div class="today-event-info">
+
+    <strong>
+        <a href="{{ url_for('edit_schedule_event', event_id=event.id) }}">
+            {{ event.title }}
+        </a>
+    </strong>
+
+                {% if event.subject %}
+    <span>
+        <a href="{{ url_for('subjects') }}">
+            {{ event.subject }}
+        </a>
+    </span>
+{% endif %}
+
+            </div>
+
+
+            <span class="today-event-type">
+                {{ event.event_type or "Event" }}
+            </span>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endif %}
+        <!-- SCHEDULE LIST -->
+
+        <section class="assignment-page-list">
+
+
+            {% if events %}
+
+
+                {% for event in events %}
+
+
+                    <div class="full-assignment-card schedule-card">
+
+
+                        <div class="full-assignment-date">
+
+                            <strong>
+                                {{ event.event_date.strftime("%d") }}
+                            </strong>
+
+                            <span>
+                                {{ event.event_date.strftime("%b") }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="full-assignment-info">
+
+                            <h3>
+    <a href="{{ url_for('edit_schedule_event', event_id=event.id) }}">
+        {{ event.title }}
+    </a>
+</h3>
+
+
+                           {% if event.subject %}
+
+    <p>
+        Subject:
+        <a href="{{ url_for('subjects') }}">
+            {{ event.subject }}
+        </a>
+    </p>
+
+{% endif %}
+
+
+                            {% if event.start_time %}
+
+                                <small>
+
+                                    Time:
+                                    {{ event.start_time.strftime("%I:%M %p") }}
+
+                                    {% if event.end_time %}
+                                        -
+                                        {{ event.end_time.strftime("%I:%M %p") }}
+                                    {% endif %}
+
+                                </small>
+
+                            {% endif %}
+
+
+                            {% if event.event_type %}
+
+                                <small>
+                                    Type: {{ event.event_type }}
+                                </small>
+
+                            {% endif %}
+
+
+                            {% if event.description %}
+
+                                <small>
+                                    {{ event.description }}
+                                </small>
+
+                            {% endif %}
+                            {% if event.event_date == current_date %}
+
+    <small class="event-due-info today-info">
+        Today
+    </small>
+
+{% elif event.event_date > current_date %}
+
+    <small class="event-due-info">
+        {{ (event.event_date - current_date).days }} day(s) left
+    </small>
+
+{% else %}
+
+    <small class="event-due-info overdue-info">
+        Event passed
+    </small>
+
+{% endif %}
+
+                        </div>
+
+
+                        <div class="assignment-right">
+
+   <span class="status pending">
+    {{ event.event_type or "Academic Event" }}
+</span>
+
+    <a href="{{ url_for('edit_schedule_event', event_id=event.id) }}"
+       class="edit-schedule-btn">
+
+        Edit
+
+    </a>
+
+
+   <form method="POST"
+      action="{{ url_for('delete_schedule_event', event_id=event.id) }}"
+      class="assignment-action-form"
+      onsubmit="return confirm('Are you sure you want to delete this schedule event?');">
+
+    <button type="submit"
+            class="delete-assignment-btn">
+
+        Delete
+
+    </button>
+
+</form>
+
+</div>
+
+
+                    </div>
+
+
+                {% endfor %}
+
+
+            {% else %}
+
+
+                <!-- EMPTY STATE -->
+
+               <div class="no-assignments">
+    <div class="empty-icon">📅</div>
+
+    <h3>No schedule events yet</h3>
+
+    <p>
+        Add your classes, labs, exams, and other academic events
+        to keep your schedule organized.
+    </p>
+
+    <a href="{{ url_for('add_schedule_event') }}"
+       class="add-assignment-btn">
+        + Add First Event
+    </a>
+</div>
+
+
+            {% endif %}
+
+
+        </section>
+
+
+    </main>
+
+</body>
+
+</html>

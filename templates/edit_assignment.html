@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Acadexa | Edit Assignment</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body class="dashboard-page">
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="dashboard-sidebar">
+
+        <div class="dashboard-logo">
+
+            <div class="logo-box">
+                A
+            </div>
+
+            <div>
+                <h2>Acadexa</h2>
+                <span>Student Portal</span>
+            </div>
+
+        </div>
+
+
+       <nav class="dashboard-menu">
+
+    <a href="{{ url_for('dashboard') }}" class="menu-item">
+        <span>⌂</span>
+        Dashboard
+    </a>
+
+    <a href="{{ url_for('assignments') }}" class="menu-item active">
+        <span>▣</span>
+        Assignments
+    </a>
+
+    <a href="{{ url_for('subjects') }}" class="menu-item">
+        <span>◫</span>
+        Subjects
+    </a>
+
+    <a href="{{ url_for('notes') }}" class="menu-item">
+        <span>▤</span>
+        Notes
+    </a>
+
+    <a href="{{ url_for('schedule') }}" class="menu-item">
+        <span>◷</span>
+        Schedule
+    </a>
+
+    <a href="{{ url_for('progress') }}" class="menu-item">
+        <span>◉</span>
+        Progress
+    </a>
+
+</nav>
+
+        <div class="sidebar-bottom">
+
+           <a href="{{ url_for('settings') }}"
+   class="menu-item">
+
+    <span>⚙</span>
+    Settings
+
+</a>
+
+<a href="{{ url_for('logout') }}"
+   class="menu-item logout-item"
+   onclick="return confirm('Are you sure you want to log out?');">
+    <span>↪</span>
+    Logout
+</a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="dashboard-main">
+
+
+        <header class="dashboard-header">
+
+            <div>
+
+                <p class="small-heading">
+                    Academic Work
+                </p>
+
+                <h1>
+                    Edit Assignment
+                </h1>
+
+                <p class="header-description">
+                    Update the details of your academic task.
+                </p>
+
+            </div>
+
+
+           <a href="{{ url_for('settings') }}"
+   class="profile-mini profile-mini-link">
+
+    <div class="profile-avatar">
+        {{ user.name[0]|upper }}
+    </div>
+
+    <div>
+
+        <strong>
+            {{ user.name }}
+        </strong>
+
+        <span>
+            {{ user.course or "Student" }}
+        </span>
+
+    </div>
+
+</a>
+        </header>
+
+
+
+        <!-- ================= EDIT FORM ================= -->
+
+        <section class="assignment-form-card">
+
+
+            <div class="form-title">
+
+                <h2>
+                    Assignment Details
+                </h2>
+
+                <p>
+                    Update your assignment information below.
+                </p>
+
+            </div>
+
+
+
+            <!-- FLASH MESSAGES -->
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+
+                {% if messages %}
+
+                    <div class="form-messages">
+
+                        {% for category, message in messages %}
+
+                            <div class="form-message {{ category }}">
+                                {{ message }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+            {% endwith %}
+
+
+
+            <form method="POST"
+                  action="{{ url_for('edit_assignment', assignment_id=assignment.id) }}">
+
+
+                <!-- ASSIGNMENT TITLE -->
+
+                <div class="form-group">
+
+                    <label for="title">
+                        Assignment Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        value="{{ assignment.title }}"
+                        required>
+
+                </div>
+
+
+
+                <!-- SUBJECT -->
+
+               <!-- SUBJECT -->
+
+<div class="form-group">
+
+    <label for="subject">
+        Subject
+    </label>
+
+    <select
+        id="subject"
+        name="subject"
+        class="note-subject-filter"
+        required>
+
+        <option value="">
+            Select Subject
+        </option>
+
+        {% for subject in subject_options %}
+
+            <option
+                value="{{ subject }}"
+                {% if assignment.subject == subject %}
+                    selected
+                {% endif %}
+            >
+                {{ subject }}
+            </option>
+
+        {% endfor %}
+
+    </select>
+
+</div>
+
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="form-group">
+
+                    <label for="description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="5">{{ assignment.description or "" }}</textarea>
+
+                </div>
+
+
+
+                <!-- DATE AND PRIORITY -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="due_date">
+                            Due Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="due_date"
+                            name="due_date"
+                            value="{{ assignment.due_date.strftime('%Y-%m-%d') }}"
+                            required>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="priority">
+                            Priority
+                        </label>
+
+                        <select
+                            id="priority"
+                            name="priority">
+
+
+                            <option value="Low"
+                                {% if assignment.priority == "Low" %}
+                                    selected
+                                {% endif %}>
+
+                                Low
+
+                            </option>
+
+
+                            <option value="Medium"
+                                {% if assignment.priority == "Medium" %}
+                                    selected
+                                {% endif %}>
+
+                                Medium
+
+                            </option>
+
+
+                            <option value="High"
+                                {% if assignment.priority == "High" %}
+                                    selected
+                                {% endif %}>
+
+                                High
+
+                            </option>
+
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- BUTTONS -->
+
+                <div class="form-actions">
+
+
+                    <a href="{{ url_for('assignments') }}"
+                       class="cancel-btn">
+
+                        Cancel
+
+                    </a>
+
+
+                    <button type="submit"
+                            class="save-assignment-btn">
+
+                        Save Changes
+
+                    </button>
+
+
+                </div>
+
+
+            </form>
+
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>

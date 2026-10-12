@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Settings - Acadexa</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+
+        <!-- Sidebar -->
+
+        <aside class="dashboard-sidebar">
+
+            <div class="sidebar-logo">
+                <h2>Acadexa</h2>
+                <p>Academic Management</p>
+            </div>
+
+            <nav class="dashboard-menu">
+
+                <a href="{{ url_for('dashboard') }}" class="menu-item">
+                    <span>⌂</span>
+                    Dashboard
+                </a>
+
+                <a href="{{ url_for('assignments') }}" class="menu-item">
+                    <span>▣</span>
+                    Assignments
+                </a>
+
+                <a href="{{ url_for('subjects') }}" class="menu-item">
+                    <span>◫</span>
+                    Subjects
+                </a>
+
+                <a href="{{ url_for('notes') }}" class="menu-item">
+                    <span>▤</span>
+                    Notes
+                </a>
+
+                <a href="{{ url_for('schedule') }}" class="menu-item">
+                    <span>◷</span>
+                    Schedule
+                </a>
+
+                <a href="{{ url_for('progress') }}" class="menu-item">
+                    <span>◉</span>
+                    Progress
+                </a>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <a href="{{ url_for('settings') }}"
+                   class="menu-item active">
+                    <span>⚙</span>
+                    Settings
+                </a>
+
+                <a href="{{ url_for('logout') }}"
+   class="menu-item logout-item"
+   onclick="return confirm('Are you sure you want to log out?');">
+    <span>↪</span>
+    Logout
+</a>
+
+            </div>
+
+        </aside>
+
+
+        <!-- Main Content -->
+
+        <main class="dashboard-main">
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+
+    {% if messages %}
+
+        {% for category, message in messages %}
+
+            <div class="flash-message {{ category }}">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+{% endwith %}
+
+            <div class="dashboard-header">
+
+                <div>
+                    <h1>Settings</h1>
+
+                    <p>
+                        Manage your Acadexa account and preferences.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="content-card">
+
+    <h2>Account Settings</h2>
+
+    <p>
+        Update your academic profile information below.
+    </p>
+
+    <form action="{{ url_for('update_profile') }}"
+          method="POST">
+
+        <div class="form-group">
+
+            <label for="name">
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                name="name"
+                value="{{ user.name }}"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="email">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                value="{{ user.email }}"
+                readonly
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="course">
+                Course
+            </label>
+
+            <input
+                type="text"
+                id="course"
+                name="course"
+                value="{{ user.course or '' }}"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="semester">
+                Semester
+            </label>
+
+            <select
+                id="semester"
+                name="semester"
+                required
+            >
+
+                <option value="1"
+                    {% if user.semester == 1 %}selected{% endif %}>
+                    Semester 1
+                </option>
+
+                <option value="2"
+                    {% if user.semester == 2 %}selected{% endif %}>
+                    Semester 2
+                </option>
+
+                <option value="3"
+                    {% if user.semester == 3 %}selected{% endif %}>
+                    Semester 3
+                </option>
+
+                <option value="4"
+                    {% if user.semester == 4 %}selected{% endif %}>
+                    Semester 4
+                </option>
+
+                <option value="5"
+                    {% if user.semester == 5 %}selected{% endif %}>
+                    Semester 5
+                </option>
+
+                <option value="6"
+                    {% if user.semester == 6 %}selected{% endif %}>
+                    Semester 6
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Account Role
+            </label>
+
+            <input
+                type="text"
+                value="{{ user.role }}"
+                readonly
+            >
+
+        </div>
+
+
+        <button type="submit">
+            Save Changes
+        </button>
+
+    </form>
+
+</div>
+
+        </main>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Acadexa | Add Event</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body class="dashboard-page">
+
+    <!-- SIDEBAR -->
+
+    <aside class="dashboard-sidebar">
+
+        <div class="dashboard-logo">
+
+            <div class="logo-box">
+                A
+            </div>
+
+            <div>
+                <h2>Acadexa</h2>
+                <span>Student Portal</span>
+            </div>
+
+        </div>
+
+
+       <nav class="dashboard-menu">
+
+    <a href="{{ url_for('dashboard') }}" class="menu-item">
+        <span>⌂</span>
+        Dashboard
+    </a>
+
+    <a href="{{ url_for('assignments') }}" class="menu-item">
+        <span>▣</span>
+        Assignments
+    </a>
+
+    <a href="{{ url_for('subjects') }}" class="menu-item">
+        <span>◫</span>
+        Subjects
+    </a>
+
+    <a href="{{ url_for('notes') }}" class="menu-item">
+        <span>▤</span>
+        Notes
+    </a>
+
+    <a href="{{ url_for('schedule') }}" class="menu-item active">
+        <span>◷</span>
+        Schedule
+    </a>
+
+    <a href="{{ url_for('progress') }}" class="menu-item">
+        <span>◉</span>
+        Progress
+    </a>
+
+</nav>
+
+<div class="sidebar-bottom">
+
+    <a href="{{ url_for('settings') }}"
+       class="menu-item">
+
+        <span>⚙</span>
+        Settings
+
+    </a>
+
+
+    <a href="{{ url_for('logout') }}"
+   class="menu-item logout-item"
+   onclick="return confirm('Are you sure you want to log out?');">
+    <span>↪</span>
+    Logout
+</a>
+</div>
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="dashboard-main">
+
+
+        <header class="dashboard-header">
+
+            <div>
+
+                <p class="small-heading">
+                    Academic Planning
+                </p>
+
+                <h1>
+                    Add New Event
+                </h1>
+
+                <p class="header-description">
+                    Add a class, exam or important academic event.
+                </p>
+
+            </div>
+
+<a href="{{ url_for('settings') }}"
+   class="profile-mini profile-mini-link">
+
+    <div class="profile-avatar">
+        {{ user.name[0]|upper }}
+    </div>
+
+    <div>
+
+        <strong>
+            {{ user.name }}
+        </strong>
+
+        <span>
+            {{ user.course or "Student" }}
+        </span>
+
+    </div>
+
+</a>
+
+        </header>
+
+
+        <!-- EVENT FORM -->
+
+        <section class="form-section">
+
+            <div class="form-card">
+
+
+                <div class="form-card-header">
+
+                    <div>
+
+                        <h2>
+                            Event Information
+                        </h2>
+
+                        <p>
+                            Enter the details of your academic event.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <form method="POST"
+                      action="{{ url_for('add_schedule_event') }}">
+
+
+                    <!-- EVENT TITLE -->
+
+                    <div class="form-group">
+
+                        <label for="title">
+                            Event Title
+                        </label>
+
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            placeholder="e.g. Computer Networks Class"
+                            required>
+
+                    </div>
+
+
+                    <!-- SUBJECT -->
+
+                   <!-- SUBJECT -->
+
+<div class="form-group">
+
+    <label for="subject">
+        Subject
+    </label>
+
+    <select
+        id="subject"
+        name="subject"
+        class="note-subject-filter">
+
+        <option value="">
+            Select Subject
+        </option>
+
+        {% for subject in subject_options %}
+
+            <option value="{{ subject }}">
+                {{ subject }}
+            </option>
+
+        {% endfor %}
+
+    </select>
+
+</div>
+
+
+                    <!-- DATE -->
+
+                    <div class="form-group">
+
+                        <label for="event_date">
+                            Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="event_date"
+                            name="event_date"
+                            required>
+
+                    </div>
+
+
+                    <!-- TIME ROW -->
+
+                    <div class="form-row">
+
+
+                        <div class="form-group">
+
+                            <label for="start_time">
+                                Start Time
+                            </label>
+
+                            <input
+                                type="time"
+                                id="start_time"
+                                name="start_time">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="end_time">
+                                End Time
+                            </label>
+
+                            <input
+                                type="time"
+                                id="end_time"
+                                name="end_time">
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- EVENT TYPE -->
+
+                    <div class="form-group">
+
+                        <label for="event_type">
+                            Event Type
+                        </label>
+
+                        <select
+                            id="event_type"
+                            name="event_type">
+
+                            <option value="">
+                                Select event type
+                            </option>
+
+                            <option value="Class">
+                                Class
+                            </option>
+
+                            <option value="Exam">
+                                Exam
+                            </option>
+
+                            <option value="Assignment">
+                                Assignment
+                            </option>
+
+                            <option value="Meeting">
+                                Meeting
+                            </option>
+
+                            <option value="Presentation">
+                                Presentation
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="form-group">
+
+                        <label for="description">
+                            Description
+                        </label>
+
+                        <textarea
+                            id="description"
+                            name="description"
+                            rows="6"
+                            placeholder="Add any additional information..."></textarea>
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="form-actions">
+
+                        <a href="{{ url_for('schedule') }}"
+                           class="cancel-btn">
+
+                            Cancel
+
+                        </a>
+
+
+                        <button type="submit"
+                                class="save-note-btn">
+
+                            Save Event
+
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</body>
+
+</html>

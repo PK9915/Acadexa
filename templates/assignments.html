@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Acadexa | Assignments</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body class="dashboard-page">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="dashboard-sidebar">
+
+        <div class="dashboard-logo">
+
+            <div class="logo-box">
+                A
+            </div>
+
+            <div>
+                <h2>Acadexa</h2>
+                <span>Student Portal</span>
+            </div>
+
+        </div>
+
+
+       <nav class="dashboard-menu">
+
+    <a href="{{ url_for('dashboard') }}" class="menu-item">
+        <span>⌂</span>
+        Dashboard
+    </a>
+
+    <a href="{{ url_for('assignments') }}" class="menu-item active">
+        <span>▣</span>
+        Assignments
+    </a>
+
+    <a href="{{ url_for('subjects') }}" class="menu-item">
+        <span>◫</span>
+        Subjects
+    </a>
+
+    <a href="{{ url_for('notes') }}" class="menu-item">
+        <span>▤</span>
+        Notes
+    </a>
+
+    <a href="{{ url_for('schedule') }}" class="menu-item">
+        <span>◷</span>
+        Schedule
+    </a>
+
+    <a href="{{ url_for('progress') }}" class="menu-item">
+        <span>◉</span>
+        Progress
+    </a>
+
+</nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="#" class="menu-item">
+
+                <span>⚙</span>
+                Settings
+
+            </a>
+
+
+           <a href="{{ url_for('logout') }}"
+   class="menu-item logout-item"
+   onclick="return confirm('Are you sure you want to log out?');">
+    <span>↪</span>
+    Logout
+</a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- MAIN CONTENT -->
+
+   <main class="dashboard-main">
+
+
+    <header class="dashboard-header">
+
+        <div>
+
+            <p class="small-heading">
+                Academic Work
+            </p>
+
+            <h1>
+                My Assignments
+            </h1>
+
+            <p class="header-description">
+                Manage your academic tasks and deadlines.
+            </p>
+
+        </div>
+
+
+        <a href="{{ url_for('settings') }}"
+           class="profile-mini profile-mini-link">
+
+            <div class="profile-avatar">
+                {{ user.name[0]|upper }}
+            </div>
+
+            <div>
+
+                <strong>
+                    {{ user.name }}
+                </strong>
+
+                <span>
+                    {{ user.course or "Student" }}
+                </span>
+
+            </div>
+
+        </a>
+
+    </header>
+
+
+
+        <!-- TOP ACTION -->
+
+        <div class="assignment-page-top">
+
+            <div>
+
+              <h2>
+    Assignment List
+    <span class="assignment-list-count">
+        ({{ assignments|length }})
+    </span>
+</h2>
+
+<p class="assignment-list-summary">
+    {% if assignments|length == 0 %}
+        No assignments found.
+    {% elif assignments|length == 1 %}
+        1 assignment currently displayed.
+    {% else %}
+        {{ assignments|length }} assignments currently displayed.
+    {% endif %}
+</p>
+                <p>
+                    Keep your academic work organized.
+                </p>
+
+            </div>
+
+
+            <a href="{{ url_for('add_assignment') }}"
+               class="add-assignment-btn">
+
+                + Add Assignment
+
+            </a>
+
+        </div>
+
+
+
+<!-- SEARCH AND FILTERS -->
+
+<div class="assignment-filters">
+
+    <form method="GET"
+          action="{{ url_for('assignments') }}">
+
+        <div class="assignment-search">
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search assignments or subjects..."
+                value="{{ search }}"
+            >
+
+        </div>
+
+
+        <div class="assignment-filter">
+
+            <select name="status">
+
+                <option value="">
+                    All Status
+                </option>
+
+                <option value="Pending"
+                    {% if status_filter == "Pending" %}selected{% endif %}>
+                    Pending
+                </option>
+
+                <option value="Completed"
+                    {% if status_filter == "Completed" %}selected{% endif %}>
+                    Completed
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="assignment-filter">
+
+            <select name="priority">
+
+                <option value="">
+                    All Priorities
+                </option>
+
+                <option value="High"
+                    {% if priority_filter == "High" %}selected{% endif %}>
+                    High
+                </option>
+
+                <option value="Medium"
+                    {% if priority_filter == "Medium" %}selected{% endif %}>
+                    Medium
+                </option>
+
+                <option value="Low"
+                    {% if priority_filter == "Low" %}selected{% endif %}>
+                    Low
+                </option>
+
+            </select>
+
+            <div class="assignment-filter">
+
+    <select name="subject">
+
+        <option value="">
+            All Subjects
+        </option>
+
+       {% for subject in subject_options %}
+
+    <option value="{{ subject }}"
+        {% if subject_filter == subject %}selected{% endif %}>
+        {{ subject }}
+    </option>
+
+{% endfor %}
+
+    </select>
+
+</div>
+
+        </div>
+
+
+        <button type="submit"
+                class="assignment-filter-btn">
+
+            Filter
+
+        </button>
+
+
+        <a href="{{ url_for('assignments') }}"
+           class="assignment-clear-btn">
+
+            Clear
+
+        </a>
+
+    </form>
+
+</div>
+
+
+<!-- ASSIGNMENTS -->
+
+<section class="assignment-page-list">
+
+       
+
+
+            {% if assignments %}
+
+                {% for assignment in assignments %}
+
+                    <div class="full-assignment-card">
+
+
+                        <div class="full-assignment-date">
+
+                            <strong>
+                                {{ assignment.due_date.strftime('%d') }}
+                            </strong>
+
+                            <span>
+                                {{ assignment.due_date.strftime('%b')|upper }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="full-assignment-info">
+
+                           <h3>
+    <a href="{{ url_for('edit_assignment', assignment_id=assignment.id) }}">
+        {{ assignment.title }}
+    </a>
+</h3>
+
+                           <p>
+    <a href="{{ url_for('subjects') }}">
+        {{ assignment.subject }}
+    </a>
+</p>
+
+
+                          {% if assignment.description %}
+    <small>
+        {{ assignment.description }}
+    </small>
+{% endif %}
+
+{% if assignment.status != "Completed" and assignment.due_date < current_date %}
+    <small class="assignment-due-info overdue-info">
+        {{ (current_date - assignment.due_date).days }} day(s) overdue
+    </small>
+{% elif assignment.due_date == current_date %}
+    <small class="assignment-due-info today-info">
+        Due today
+    </small>
+{% else %}
+    <small class="assignment-due-info">
+        {{ (assignment.due_date - current_date).days }} day(s) left
+    </small>
+{% endif %}
+
+                        </div>
+
+
+                        <div class="assignment-right">
+
+
+                            <span class="priority
+                                {{ assignment.priority|lower }}">
+
+                                {{ assignment.priority }}
+
+                            </span>
+
+
+                             {% if assignment.status != "Completed" and assignment.due_date < current_date %}
+
+    <span class="status overdue">
+        Overdue
+    </span>
+
+{% else %}
+
+    <span class="status {{ assignment.status|lower }}">
+        {{ assignment.status }}
+    </span>
+
+{% endif %}
+
+
+                                          <a href="{{ url_for('edit_assignment', assignment_id=assignment.id) }}"
+                                          class="edit-assignment-btn">
+
+                                                 Edit
+
+                                                          </a>
+                                                          {% if assignment.status != "Completed" %}
+
+                                                              <form method="POST"
+                                                                action="{{ url_for('complete_assignment', assignment_id=assignment.id) }}"
+                                                                  class="assignment-action-form">
+
+                                                                     <button type="submit"
+                                                                         class="complete-assignment-btn">
+
+                                                                               Complete
+
+                                                                                    </button>
+
+                                                                                         </form>
+
+                                                                                                 {% endif %}
+<form method="POST"
+      action="{{ url_for('delete_assignment', assignment_id=assignment.id) }}"
+      class="assignment-action-form"
+      onsubmit="return confirm('Are you sure you want to delete this assignment?');">
+
+    <button type="submit"
+            class="delete-assignment-btn">
+
+        Delete
+
+    </button>
+
+</form>
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+
+            {% else %}
+
+                <div class="no-assignments">
+
+                    <div class="empty-icon">
+                        📝
+                    </div>
+
+                    <h3>
+    {% if search or status_filter or priority_filter or subject_filter %}
+        No matching assignments found
+    {% else %}
+        No assignments yet
+    {% endif %}
+</h3>
+
+<p>
+    {% if search or status_filter or priority_filter or subject_filter %}
+        Try changing your search or filters to find another assignment.
+    {% else %}
+        Add your first assignment to start organizing your academic work.
+    {% endif %}
+</p>
+
+                    <a href="{{ url_for('add_assignment') }}"
+                       class="add-assignment-btn">
+
+                        Add First Assignment
+
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>

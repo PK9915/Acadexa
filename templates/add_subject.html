@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Acadexa | Add Subject</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body class="dashboard-page">
+
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="dashboard-sidebar">
+
+        <div class="dashboard-logo">
+
+            <div class="logo-box">
+                A
+            </div>
+
+            <div>
+                <h2>Acadexa</h2>
+                <span>Student Portal</span>
+            </div>
+
+        </div>
+
+
+       <nav class="dashboard-menu">
+
+    <a href="{{ url_for('dashboard') }}" class="menu-item">
+        <span>⌂</span>
+        Dashboard
+    </a>
+
+    <a href="{{ url_for('assignments') }}" class="menu-item">
+        <span>▣</span>
+        Assignments
+    </a>
+
+    <a href="{{ url_for('subjects') }}" class="menu-item active">
+        <span>◫</span>
+        Subjects
+    </a>
+
+    <a href="{{ url_for('notes') }}" class="menu-item">
+        <span>▤</span>
+        Notes
+    </a>
+
+    <a href="{{ url_for('schedule') }}" class="menu-item">
+        <span>◷</span>
+        Schedule
+    </a>
+
+    <a href="{{ url_for('progress') }}" class="menu-item">
+        <span>◉</span>
+        Progress
+    </a>
+
+</nav>
+
+<div class="sidebar-bottom">
+
+    <a href="{{ url_for('settings') }}"
+       class="menu-item">
+
+        <span>⚙</span>
+        Settings
+
+    </a>
+
+
+   <a href="{{ url_for('logout') }}"
+   class="menu-item logout-item"
+   onclick="return confirm('Are you sure you want to log out?');">
+    <span>↪</span>
+    Logout
+</a>
+
+</div>
+
+    </aside>
+
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="dashboard-main">
+<div class="flash-container">
+
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+
+        <div class="flash-message {{ category }}">
+            <strong>{{ message }}</strong>
+        </div>
+
+    {% endfor %}
+
+</div>
+
+        <header class="dashboard-header">
+
+            <div>
+
+                <p class="small-heading">
+                    Academic Organization
+                </p>
+
+                <h1>
+                    Add New Subject
+                </h1>
+
+                <p class="header-description">
+                    Add a subject to your current academic semester.
+                </p>
+
+            </div>
+
+
+           <a href="{{ url_for('settings') }}"
+   class="profile-mini profile-mini-link">
+
+    <div class="profile-avatar">
+        {{ user.name[0]|upper }}
+    </div>
+
+    <div>
+        <strong>{{ user.name }}</strong>
+        <span>{{ user.course or "Student" }}</span>
+    </div>
+
+</a>
+        </header>
+
+
+
+        <!-- FORM CARD -->
+
+        <section class="assignment-form-card">
+
+
+            <div class="form-card-header">
+
+                <h2>
+                    Subject Information
+                </h2>
+
+                <p>
+                    Enter the details of your subject below.
+                </p>
+
+            </div>
+
+
+            <form method="POST"
+                  action="{{ url_for('add_subject') }}">
+
+
+                <!-- SUBJECT NAME -->
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Subject Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="e.g. Database Management System"
+                        required>
+
+                </div>
+
+
+
+                <!-- SUBJECT CODE -->
+
+                <div class="form-group">
+
+                    <label for="code">
+                        Subject Code
+                    </label>
+
+                    <input
+                        type="text"
+                        id="code"
+                        name="code"
+                        placeholder="e.g. MCA-301">
+
+                </div>
+
+
+
+                <!-- TEACHER -->
+
+                <div class="form-group">
+
+                    <label for="teacher">
+                        Faculty / Teacher
+                    </label>
+
+                    <input
+                        type="text"
+                        id="teacher"
+                        name="teacher"
+                        placeholder="e.g. Dr. Sharma">
+
+                </div>
+
+
+
+                <!-- SEMESTER -->
+
+                <div class="form-group">
+
+                    <label for="semester">
+                        Semester
+                    </label>
+
+                    <select
+                        id="semester"
+                        name="semester">
+
+                        <option value="">
+                            Select Semester
+                        </option>
+
+                        <option value="1">
+                            Semester 1
+                        </option>
+
+                        <option value="2">
+                            Semester 2
+                        </option>
+
+                        <option value="3">
+                            Semester 3
+                        </option>
+
+                        <option value="4">
+                            Semester 4
+                        </option>
+
+                        <option value="5">
+                            Semester 5
+                        </option>
+
+                        <option value="6">
+                            Semester 6
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="form-group">
+
+                    <label for="description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="4"
+                        placeholder="Write a short description about this subject..."></textarea>
+
+                </div>
+
+
+
+                <!-- ACTIONS -->
+
+                <div class="form-actions">
+
+                    <a href="{{ url_for('subjects') }}"
+                       class="cancel-btn">
+
+                        Cancel
+
+                    </a>
+
+
+                    <button
+                        type="submit"
+                        class="add-assignment-btn">
+
+                        Add Subject
+
+                    </button>
+
+                </div>
+
+
+            </form>
+
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>

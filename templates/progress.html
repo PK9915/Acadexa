@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Acadexa | Progress</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body class="dashboard-page">
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="dashboard-sidebar">
+
+        <div class="dashboard-logo">
+
+            <div class="logo-box">
+                A
+            </div>
+
+            <div>
+
+                <h2>Acadexa</h2>
+
+                <span>Student Portal</span>
+
+            </div>
+
+        </div>
+
+
+      <nav class="dashboard-menu">
+
+    <a href="{{ url_for('dashboard') }}" class="menu-item">
+        <span>⌂</span>
+        Dashboard
+    </a>
+
+    <a href="{{ url_for('assignments') }}" class="menu-item">
+        <span>▣</span>
+        Assignments
+    </a>
+
+    <a href="{{ url_for('subjects') }}" class="menu-item">
+        <span>◫</span>
+        Subjects
+    </a>
+
+    <a href="{{ url_for('notes') }}" class="menu-item">
+        <span>▤</span>
+        Notes
+    </a>
+
+    <a href="{{ url_for('schedule') }}" class="menu-item">
+        <span>◷</span>
+        Schedule
+    </a>
+
+    <a href="{{ url_for('progress') }}" class="menu-item active">
+        <span>◉</span>
+        Progress
+    </a>
+
+</nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="{{ url_for('settings') }}"
+               class="menu-item">
+
+                <span>⚙</span>
+                Settings
+
+            </a>
+
+
+            <a href="{{ url_for('logout') }}"
+   class="menu-item logout-item"
+   onclick="return confirm('Are you sure you want to log out?');">
+    <span>↪</span>
+    Logout
+</a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ================= MAIN AREA ================= -->
+
+    <main class="dashboard-main">
+
+
+        <!-- ================= TOP BAR ================= -->
+
+        <header class="dashboard-header">
+
+            <div>
+
+                <p class="small-heading">
+                    Academic Performance
+                </p>
+
+                <h1>
+                    My Progress
+                </h1>
+
+                <p class="header-description">
+                    Track your academic activities and assignment completion.
+                </p>
+
+            </div>
+
+
+         <a href="{{ url_for('settings') }}"
+   class="profile-mini profile-mini-link">
+
+    <div class="profile-avatar">
+
+        {{ user.name[0]|upper }}
+
+    </div>
+
+    <div>
+
+        <strong>
+            {{ user.name }}
+        </strong>
+
+        <span>
+            {{ user.course or "Student" }}
+        </span>
+
+    </div>
+
+</a>
+        </header>
+
+
+
+        <!-- ================= STATISTICS ================= -->
+
+        <section class="dashboard-stats">
+
+
+            <!-- TOTAL ASSIGNMENTS -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon assignment-icon">
+                    📚
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Assignments
+                    </span>
+
+                    <h2>
+                        {{ total_assignments }}
+                    </h2>
+
+                    <small>
+                        Academic tasks
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- COMPLETED -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon progress-icon">
+                    ✅
+                </div>
+
+                <div>
+
+                    <span>
+                        Completed
+                    </span>
+
+                    <h2>
+                        {{ completed_assignments }}
+                    </h2>
+
+                    <small>
+                        Finished tasks
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PENDING -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon subject-icon">
+                    ⏳
+                </div>
+
+                <div>
+
+                    <span>
+                        Pending
+                    </span>
+
+                    <h2>
+                        {{ pending_assignments }}
+                    </h2>
+
+                    <small>
+                        Remaining tasks
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- OVERDUE -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon notes-icon">
+                    ⚠️
+                </div>
+
+                <div>
+
+                    <span>
+                        Overdue
+                    </span>
+
+                    <h2>
+                        {{ overdue_assignments }}
+                    </h2>
+
+                    <small>
+                        Needs attention
+                    </small>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= PROGRESS CONTENT ================= -->
+
+        <section class="dashboard-content">
+
+
+            <!-- ASSIGNMENT PERFORMANCE -->
+
+            <div class="dashboard-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <h2>
+                            Assignment Performance
+                        </h2>
+
+                        <p>
+                            Your current assignment completion status.
+                        </p>
+
+                    </div>
+
+                    <strong class="progress-number">
+                        {{ completion_percentage }}%
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                       data-progress="{{ completion_percentage }}">
+                    </div>
+
+                </div>
+
+
+                <div class="progress-labels">
+
+                    <span>
+                        Completed:
+                        {{ completed_assignments }}
+                    </span>
+
+                    <span>
+                        Total:
+                        {{ total_assignments }}
+                    </span>
+
+                </div>
+
+            </div>
+
+<!-- =====================================================
+     ASSIGNMENT STATUS BREAKDOWN
+     ===================================================== -->
+
+<div class="dashboard-card assignment-breakdown-card">
+
+    <div class="card-heading">
+
+        <div>
+            <h2>
+                Assignment Status Breakdown
+            </h2>
+
+            <p>
+                Overview of your completed, pending and overdue assignments.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="status-breakdown">
+
+        <!-- COMPLETED -->
+
+        <div class="status-breakdown-item">
+
+            <div class="status-breakdown-header">
+
+                <span>
+                    Completed
+                </span>
+
+                <strong>
+                    {{ completed_percentage }}%
+                </strong>
+
+            </div>
+
+            <div class="status-breakdown-bar">
+
+                <div
+                    class="status-bar completed-bar"
+                    data-width="{{ completed_percentage }}">
+                </div>
+
+            </div>
+
+            <small>
+                {{ completed_assignments }} completed assignment(s)
+            </small>
+
+        </div>
+
+
+        <!-- PENDING -->
+
+        <div class="status-breakdown-item">
+
+            <div class="status-breakdown-header">
+
+                <span>
+                    Pending
+                </span>
+
+                <strong>
+                    {{ pending_percentage }}%
+                </strong>
+
+            </div>
+
+            <div class="status-breakdown-bar">
+
+                <div
+                    class="status-bar pending-bar"
+                    data-width="{{ pending_percentage }}">
+                </div>
+
+            </div>
+
+            <small>
+                {{ pending_assignments }} pending assignment(s)
+            </small>
+
+        </div>
+
+
+        <!-- OVERDUE -->
+
+        <div class="status-breakdown-item">
+
+            <div class="status-breakdown-header">
+
+                <span>
+                    Overdue
+                </span>
+
+                <strong>
+                    {{ overdue_percentage }}%
+                </strong>
+
+            </div>
+
+            <div class="status-breakdown-bar">
+
+                <div
+                    class="status-bar overdue-bar"
+                    data-width="{{ overdue_percentage }}">
+                </div>
+
+            </div>
+
+            <small>
+                {{ overdue_assignments }} overdue assignment(s)
+            </small>
+
+        </div>
+
+    </div>
+
+</div>
+
+            <!-- ACADEMIC ACTIVITY -->
+
+            <div class="dashboard-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <h2>
+                            Academic Activity
+                        </h2>
+
+                        <p>
+                            Overview of your Acadexa activity.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="profile-details">
+
+
+                    <div>
+
+                        <span>
+                            Subjects
+                        </span>
+
+                        <strong>
+                            {{ total_subjects }}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Notes
+                        </span>
+
+                        <strong>
+                            {{ total_notes }}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Schedule Events
+                        </span>
+
+                        <strong>
+                            {{ total_events }}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Assignments
+                        </span>
+
+                        <strong>
+                            {{ total_assignments }}
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= PROGRESS MESSAGE ================= -->
+
+        <section class="dashboard-card progress-card">
+
+
+            {% if total_assignments == 0 %}
+
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <h2>
+                            Start Tracking Your Progress
+                        </h2>
+
+                        <p>
+                            Add assignments and academic activities
+                            to start building your progress record.
+                        </p>
+
+                    </div>
+
+                    <strong class="progress-number">
+                        0%
+                    </strong>
+
+                </div>
+
+
+            {% elif completion_percentage == 100 %}
+
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <h2>
+                            All Assignments Completed 🎉
+                        </h2>
+
+                        <p>
+                            Your current assignment list has been completed.
+                        </p>
+
+                    </div>
+
+                    <strong class="progress-number">
+                        100%
+                    </strong>
+
+                </div>
+
+
+            {% elif overdue_assignments > 0 %}
+
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <h2>
+                            Review Your Overdue Assignments
+                        </h2>
+
+                        <p>
+                            You currently have
+                            {{ overdue_assignments }}
+                            overdue assignment(s).
+                        </p>
+
+                    </div>
+
+                    <strong class="progress-number">
+                        {{ completion_percentage }}%
+                    </strong>
+
+                </div>
+
+
+            {% else %}
+
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <h2>
+                            Keep Building Your Progress 📈
+                        </h2>
+
+                        <p>
+                            Continue completing your assignments
+                            to improve your completion percentage.
+                        </p>
+
+                    </div>
+
+                    <strong class="progress-number">
+                        {{ completion_percentage }}%
+                    </strong>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+
+
+        <!-- ================= QUICK ACTIONS ================= -->
+
+        <section class="quick-actions">
+
+
+            <a href="{{ url_for('assignments') }}"
+               class="quick-action">
+
+                <div>
+                    📝
+                </div>
+
+                <span>
+                    Manage Assignments
+                </span>
+
+            </a>
+
+
+            <a href="{{ url_for('subjects') }}"
+               class="quick-action">
+
+                <div>
+                    📚
+                </div>
+
+                <span>
+                    View Subjects
+                </span>
+
+            </a>
+
+
+            <a href="{{ url_for('notes') }}"
+               class="quick-action">
+
+                <div>
+                    📖
+                </div>
+
+                <span>
+                    View Notes
+                </span>
+
+            </a>
+
+
+            <a href="{{ url_for('schedule') }}"
+               class="quick-action">
+
+                <div>
+                    📅
+                </div>
+
+                <span>
+                    View Schedule
+                </span>
+
+            </a>
+
+
+        </section>
+
+
+       </main>
+
+
+   <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        /* Main academic progress bar */
+
+        const progressBar =
+            document.querySelector(".progress-fill");
+
+        if (progressBar) {
+
+            const progressValue =
+                progressBar.getAttribute("data-progress");
+
+            progressBar.style.width =
+                progressValue + "%";
+
+        }
+
+
+        /* Assignment status bars */
+
+        const statusBars =
+            document.querySelectorAll(".status-bar");
+
+        statusBars.forEach(function (bar) {
+
+            const width =
+                bar.getAttribute("data-width");
+
+            bar.style.width =
+                width + "%";
+
+        });
+
+    });
+
+</script>
+
+
+</body>
+
+</html>
