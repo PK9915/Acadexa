@@ -6,6 +6,11 @@ Acadexa is a web-based academic management platform designed to help students or
 
 The system provides features for managing assignments, subjects, study notes, schedules, and academic progress through a simple and user-friendly dashboard.
 
+## Dashboard Preview
+
+![Acadexa Dashboard](static/screenshots/dashboard.png)
+
+
 ## Features
 
 - Student registration and login
