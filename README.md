@@ -1,35 +1,34 @@
 # Acadexa
 
-### Intelligent Academic Management & Productivity Platform
+## Intelligent Academic Management & Productivity Platform
 
-Acadexa is a web-based academic management platform designed to help students organize and manage their academic activities from one place.
+Acadexa is a web-based academic management platform designed to help students organize and manage their academic activities in one place.
 
-The system provides features for managing assignments, subjects, study notes, schedules, and academic progress.
+The system provides features for managing assignments, subjects, study notes, schedules, and academic progress through a simple and user-friendly dashboard.
 
 ## Features
 
 - Student registration and login
 - Personalized student dashboard
 - Assignment management
-- Assignment status and priority tracking
+- Assignment search and filtering
+- Assignment priority and status tracking
 - Subject management
 - Study notes management
 - Academic schedule management
 - Progress tracking
-- Search and filtering
+- Overdue assignment detection
 - Profile and account settings
 - Responsive and user-friendly interface
 
 ## Technology Stack
 
-- Python
-- Flask
-- Flask-SQLAlchemy
-- SQLite
-- HTML5
-- CSS3
-- JavaScript
-- Jinja2
+- **Backend:** Python, Flask
+- **Database:** SQLite
+- **ORM:** Flask-SQLAlchemy
+- **Frontend:** HTML, CSS, JavaScript
+- **Authentication:** Flask Session
+- **Development Environment:** Visual Studio Code
 
 ## Project Structure
 
@@ -38,8 +37,6 @@ Acadexa
 │
 ├── database/
 │   └── database.py
-│
-├── instance/
 │
 ├── models/
 │   ├── assignment.py
@@ -55,8 +52,15 @@ Acadexa
 │       └── script.js
 │
 ├── templates/
+│   ├── dashboard.html
+│   ├── assignments.html
+│   ├── subjects.html
+│   ├── notes.html
+│   ├── schedule.html
+│   ├── progress.html
+│   └── ...
 │
-├── .gitignore
 ├── app.py
+├── requirements.txt
 ├── README.md
-└── requirements.txt
+└── .gitignore
